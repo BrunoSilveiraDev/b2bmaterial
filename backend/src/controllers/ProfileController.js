@@ -10,8 +10,17 @@ module.exports = {
     },
 
 
+    async listByParam(request, response) {
+      const { search } = request.body;
+
+      const profiles = await connection('profiles').where('materials', 'like', '%'+ materials +'%');
+
+      return response.json(profiles);
+    },
+
+
     async create(request, response) {
-        const { name, cnpj, email, contact, city, uf } = request.body;
+        const { name, cnpj, email, contact, materials, city, uf } = request.body;
 
         const id = generateUniqueId();
 
@@ -21,6 +30,7 @@ module.exports = {
             cnpj,
             email,
             contact,
+            materials,
             city,
             uf
         });
