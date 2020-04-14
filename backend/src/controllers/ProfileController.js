@@ -42,12 +42,12 @@ module.exports = {
 
     async update(request, response) {
       const { id } = request.params;
-      const { material, email, contact, city, uf } = request.body;
+      const { materials, email, contact, city, uf } = request.body;
 
       await connection('profiles')
         .where('id', id)
         .update({
-          "material": material,
+          "materials": materials,
           "email": email,
           "contact": contact,
           "city": city,
