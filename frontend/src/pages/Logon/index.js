@@ -13,7 +13,7 @@ export default function Logon() {
     <img src={imgB2B} alt="B2BMaterial" width="550px"/>
 
       <section className="form">
-        {/*  image here */}
+        {/*  logo here */}
 
         <form onSubmit={alert("ola")}>
           <h1>Faça seu logon</h1>
