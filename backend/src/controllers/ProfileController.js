@@ -13,7 +13,7 @@ module.exports = {
     async listByParam(request, response) {
       const { search } = request.body;
 
-      const profiles = await connection('profiles').where('materials', 'like', '%'+ materials +'%');
+      const profiles = await connection('profiles').where('materials', 'like', '%'+ search +'%');
 
       return response.json(profiles);
     },
