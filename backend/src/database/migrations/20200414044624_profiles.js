@@ -6,6 +6,7 @@ exports.up = function(knex) {
       table.string('cnpj').notNullable();
       table.string('email').notNullable();
       table.string('contact').notNullable();
+      table.string('materials').nullable();
       table.string('city').notNullable();
       table.string('uf', 2).notNullable();
   }) ;

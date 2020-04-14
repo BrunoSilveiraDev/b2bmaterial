@@ -10,6 +10,6 @@ const routes = express.Router();
 // profiles
 routes.get('/profiles', ProfileController.index);
 routes.post('/profiles', ProfileController.create);
-
+routes.put('/profiles/:id', ProfileController.update);
 
 module.exports = routes;

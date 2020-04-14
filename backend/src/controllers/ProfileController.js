@@ -29,4 +29,21 @@ module.exports = {
 
     },
 
+
+    async update(request, response) {
+      const { id } = request.params;
+      const { material, email, contact, city, uf } = request.body;
+
+      await connection('profiles')
+        .where('id', id)
+        .update({
+          "material": material,
+          "email": email,
+          "contact": contact,
+          "city": city,
+          "uf": uf
+        });
+
+      return response.status(204).send();
+    },
 };
