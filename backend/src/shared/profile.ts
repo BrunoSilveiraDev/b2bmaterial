@@ -1,10 +1,14 @@
 import { Document } from "mongoose";
+import { ApiProperty } from "@nestjs/swagger";
 
 export interface Material extends Document {
     name: string;
 }
 
-export interface Profile extends Document {
+export class Profile extends Document {
+    @ApiProperty({
+        description: "Uma lista completa com o {_id:valor} da lista de interesse",
+    })
     _id: string;
     name: string;
     uf: string;

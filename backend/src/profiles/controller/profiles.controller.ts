@@ -10,7 +10,7 @@ export class ProfilesController {
         return this.profileRepository.findAllByText(searchText);
     }
 
-    @Post("/:profileId")
+    @Post()
     async create(@Body() profile: Partial<Profile>): Promise<Profile> {
         return this.profileRepository.create(profile);
     }
