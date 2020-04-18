@@ -1,0 +1,21 @@
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  float: right;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+.rating > span {
+  display: inline-block;
+  color: yellow;
+  position: relative;
+  width: 1.1em;
+  font-size: 20px;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
