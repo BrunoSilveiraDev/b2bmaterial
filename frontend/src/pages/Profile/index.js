@@ -7,8 +7,8 @@ import * as _ from "lodash";
 import { CSSTransitionGroup } from "react-transition-group";
 
 import "./index.css";
-import CardLoading from "./card-loading";
-import Stars from "./stars";
+import CardLoading from "./utils/card-loading/card-loading";
+import Stars from "./utils/stars/stars";
 
 const stringSimilarity = require("string-similarity");
 
