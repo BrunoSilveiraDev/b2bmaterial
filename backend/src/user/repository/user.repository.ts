@@ -2,26 +2,22 @@ import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { User } from "src/shared/user.dto";
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UserRepository {
-
     private saltRounds = 10;
 
     constructor(@InjectModel("User") private userModel: Model<User>) {}
 
-    async findAllByText(searchText: string): Promise<User[]> {
-        if (!searchText || searchText === "") {
-            return this.userModel.find();
-        }
+    async findById(id: string): Promise<User> {
         return this.userModel
-            .find({ $text: { $search: `"${searchText}"` } }, { score: { $meta: "textScore" } })
-            .sort({ score: { $meta: "textScore" } });
+            .findById(id)
+            .populate("profile", "id cnpj name cidade estado uf telefone email pais materials", "Profile");
     }
 
     async findByEmail(email: string): Promise<User> {
-        return this.userModel.findOne({email})
+        return this.userModel.findOne({ email });
     }
 
     async create(model: Partial<User>): Promise<User> {
@@ -37,11 +33,11 @@ export class UserRepository {
         return this.userModel.deleteOne({ _id: id });
     }
 
-    async getHash(password: string|undefined): Promise<string> {
+    async getHash(password: string | undefined): Promise<string> {
         return bcrypt.hash(password, this.saltRounds);
     }
-  
-    async compareHash(password: string|undefined, hash: string|undefined): Promise<boolean> {
-      return bcrypt.compare(password, hash);
+
+    async compareHash(password: string | undefined, hash: string | undefined): Promise<boolean> {
+        return bcrypt.compare(password, hash);
     }
 }

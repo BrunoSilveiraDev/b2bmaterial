@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { Profile } from "src/shared/profile";
 import { InjectModel } from "@nestjs/mongoose";
+import { User } from "./../../shared/user.dto";
 
 @Injectable()
 export class ProfileRepository {
@@ -12,7 +13,62 @@ export class ProfileRepository {
             return [];
         }
         return this.profileModel
-            .find({ $text: { $search: `"${searchText}"` } }, { score: { $meta: "textScore" } })
+            .aggregate([
+                { $match: { $text: { $search: `"${searchText}"` } } },
+                {
+                    $sort: { score: { $meta: "textScore" } },
+                },
+                {
+                    $lookup: {
+                        from: "rating",
+                        localField: "_id",
+                        foreignField: "companyProfile",
+                        as: "ratings",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: "$ratings",
+                        preserveNullAndEmptyArrays: true,
+                    },
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        isProvider: 1,
+                        email: 1,
+                        phone: 1,
+                        name: 1,
+                        cnpj: 1,
+                        cidade: 1,
+                        uf: 1,
+                        materials: 1,
+                        isProducer: 1,
+                        estado: 1,
+                        pais: 1,
+                        cep: 1,
+                        ratings: { $ifNull: ["$ratings", { stars: 0, companyProfile: "$_id" }] },
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$ratings.companyProfile",
+                        isProvider: { $first: "$isProvider" },
+                        email: { $first: "$email" },
+                        phone: { $first: "$phone" },
+                        name: { $first: "$name" },
+                        cnpj: { $first: "$cnpj" },
+                        cidade: { $first: "$cidade" },
+                        uf: { $first: "$uf" },
+                        materials: { $first: "$materials" },
+                        isProducer: { $first: "$isProducer" },
+                        estado: { $first: "$estado" },
+                        pais: { $first: "$pais" },
+                        cep: { $first: "$cep" },
+                        starsAvg: { $avg: "$ratings.stars" },
+                    },
+                },
+            ])
             .sort({ score: { $meta: "textScore" } })
             .limit(50);
     }
@@ -22,7 +78,7 @@ export class ProfileRepository {
     }
 
     async update(id: string, changes: Partial<Profile>): Promise<Profile> {
-        return this.profileModel.findOneAndUpdate({ _id: id }, changes, { new: true });
+        return this.profileModel.findByIdAndUpdate(id, changes, { new: true });
     }
 
     delete(id: string) {

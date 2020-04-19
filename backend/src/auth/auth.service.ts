@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { UserRepository } from "src/user/repository/user.repository";
 import { User } from "src/shared/user.dto";
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UserRepository) { }
+    constructor(private readonly userService: UserRepository) {}
 
     async createToken(id: number, userReq: User) {
         const expiresIn = 60 * 60;
@@ -17,6 +17,7 @@ export class AuthService {
     }
 
     async validateUser(signedUser: User): Promise<boolean> {
+        console.log("singned user", signedUser);
         if (signedUser && signedUser.email) {
             return Boolean(this.userService.findByEmail(signedUser.email));
         }

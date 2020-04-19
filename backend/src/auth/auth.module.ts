@@ -14,12 +14,10 @@ export class AuthModule implements NestModule {
     public configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(passport.authenticate("jwt", { session: false }))
-<<<<<<< HEAD
+            .exclude({ path: "/profiles", method: RequestMethod.GET })
             .forRoutes(
-                { path: "/profiles/edit", method: RequestMethod.ALL },
+                { path: "/profiles", method: RequestMethod.POST },
+                { path: "/profiles", method: RequestMethod.PUT },
             );
-=======
-            .forRoutes({ path: "/profile/edit", method: RequestMethod.ALL });
->>>>>>> Editar profile
     }
 }

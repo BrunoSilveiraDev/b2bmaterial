@@ -128,20 +128,22 @@ export default function Profile() {
 =======
       <header>
         <img src={logoImg} alt="logo" />
-        <span>Bem vindo, {userName ? userName : "Visitante"}</span>
+        <span>Bem-vindo, {userName ? _.startCase(userName) : "Visitante"}</span>
 
         {!userName ? (
           <Link className="button" to="/login">
             Login
           </Link>
         ) : (
-            <Link className="button" to="/">
+          <>
+            <Link className="button" to="/profile/edit">
               Atualizar Perfil
             </Link>
 
             <button className="logout" onClick={() => logout()} type="button">
               <FiLogOut size={23} color="#fff" />
             </button>
+          </>
         )}
       </header>
 
