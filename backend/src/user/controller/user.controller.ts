@@ -6,13 +6,13 @@ import { ApiBody } from "@nestjs/swagger";
 @Controller("users")
 export class UserController {
     constructor(private userRepository: UserRepository) {}
-    @Get()
-    async search(@Query("query") searchText): Promise<User[]> {
-        return this.userRepository.findAllByText(searchText);
+    @Get("/:userId")
+    async search(@Param("userId") profileId): Promise<User> {
+        return this.userRepository.findById(profileId);
     }
 
     @Post()
-    @ApiBody({type: User})
+    @ApiBody({ type: User })
     async create(@Body() user: User): Promise<User> {
         return this.userRepository.create(user);
     }
