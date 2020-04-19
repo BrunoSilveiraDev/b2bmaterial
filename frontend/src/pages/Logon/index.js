@@ -18,6 +18,7 @@ export default function Logon() {
     api.post(`auth/login`, {email, password}).then((response) => {
       console.log(response);
       localStorage.setItem('currentUser', JSON.stringify(response.data.user)); 
+      localStorage.setItem('currentToken', JSON.stringify(response.data.token)); 
       history.push('/');
     }).catch( error => alert(error.response.data.message));
     

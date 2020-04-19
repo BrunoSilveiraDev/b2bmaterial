@@ -18,4 +18,6 @@ export class Profile extends Document {
     materials: Material[];
     isProvider: Boolean;
     isProducer: Boolean;
+    email: String;
+    phone: String;
 }

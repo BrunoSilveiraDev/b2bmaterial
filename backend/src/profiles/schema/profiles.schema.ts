@@ -12,5 +12,7 @@ export const ProfileSchema = new mongoose.Schema({
     pais: String,
     materials: [MaterialSchema],
     isProducer: Boolean,
-    isProvider: Boolean
+    isProvider: Boolean,
+    email: String,
+    phone: String
 });

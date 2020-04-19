@@ -7,13 +7,14 @@ import Stars from "../stars/stars";
 import * as _ from "lodash";
 import { FaIndustry } from "react-icons/fa";
 import { AiTwotoneGold } from "react-icons/ai";
-import { FaRegHandshake } from "react-icons/fa";
+import ContactDialog from '../contact-dialog';
+
 const stringSimilarity = require("string-similarity");
 
 
 export default function Card({ profile, searchTerm }) {
 
-    const { name, isProducer, isProvider, email, materials, contact, cidade, uf} = profile;
+    const { name, isProducer, isProvider, email, materials, contact, cidade, uf, phone} = profile;
 
     const generateSpotlightText = (textFromProfile) => {
         let finalTextToJoin = textFromProfile
@@ -63,7 +64,7 @@ export default function Card({ profile, searchTerm }) {
                       ) : null}
                       <p>{contact}</p>
                     </div>
-                    <FaRegHandshake className="button-contact" size={23} color="#000" />
+                    <ContactDialog className="button-contact" email={email} phone={phone} name={name} ></ContactDialog>
                   </div>
 
                   <div className={"profile-container-botton-info "}>
