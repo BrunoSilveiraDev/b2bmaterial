@@ -3,14 +3,15 @@ import { Link, useHistory } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import api from "../../services/api";
 import * as _ from "lodash";
-import { CSSTransitionGroup } from "react-transition-group";
+
 
 import "./styles.css";
-import CardLoading from "./utils/card-loading/card-loading";
+
 import logoImg from '../../assets/b2b-logopreto@300x-8.png';
 
-import Card from "./utils/card";
 
+
+import cssTransitionGroup from "./utils/search";
 
 export default function Profile() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -66,37 +67,6 @@ export default function Profile() {
 
 
 
-  function cssTransitionGroup(option) {
-    let componentContent;
-    if (option === 'cardloading') {
-      componentContent = loadingProfiles
-              ? (<ul>
-                {_.times(6, function (i) {
-                  return <CardLoading key={i}></CardLoading>;
-                })}
-                 </ul>)
-            : null;
-    }
-
-    if (option === 'card') {
-      componentContent =  !loadingProfiles
-                            ? (<ul>
-                              {profiles.map(
-                                (profile, i) => (<Card key={i} profile={profile} searchTerm={searchTerm}></Card>)
-                              )}</ul>)
-                            : null;
-    }
-     const obj =  <CSSTransitionGroup
-      transitionName="example"
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={300}>
-      {componentContent}
-    </CSSTransitionGroup>
-
-    return obj;
-  }
-
-
 
   return (
     <div className="profile-container">
@@ -135,8 +105,8 @@ export default function Profile() {
       </div>
 
 
-      {cssTransitionGroup('cardloading')}
-      {cssTransitionGroup('card')}
+      {cssTransitionGroup('cardloading', loadingProfiles)}
+      {cssTransitionGroup('card',  loadingProfiles, profiles, searchTerm)}
 
     </div>
   );
