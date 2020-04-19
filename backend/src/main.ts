@@ -10,6 +10,9 @@ async function bootstrap() {
         .setDescription("Contruindo pontes para quem precisa produzir")
         .setVersion("1.0")
         .addTag("hackathon")
+        .addBearerAuth(
+            {name: 'Authorization', type: 'apiKey', in: 'header'}
+        )
         .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup("swagger", app, document);

@@ -1,7 +1,9 @@
 import { Controller, Get, Query, Put, Param, Body, Delete, Post, BadRequestException } from "@nestjs/common";
 import { ProfileRepository } from "../repository/profile.repository";
 import { Profile } from "src/shared/profile";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
+@ApiBearerAuth()
 @Controller("profiles")
 export class ProfilesController {
     constructor(private profileRepository: ProfileRepository) {}
