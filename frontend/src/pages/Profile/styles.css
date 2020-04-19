@@ -69,5 +69,12 @@
 }
 
 ul {
-  margin-top: 330px;
+  margin-top: 370px;
+}
+
+.results {
+  color: #797979;
+  line-height: 24px;
+  font: 400 17px Roboto, sans-serif;
+  padding-bottom: 10px;
 }

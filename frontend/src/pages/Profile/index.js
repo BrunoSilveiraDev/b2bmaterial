@@ -17,7 +17,7 @@ export default function Profile() {
   const [loadingProfiles, setLoadingProfiles] = useState(false);
   const [userName, setUserName] = useState(null);
   const history = useHistory();
-
+  const [count, setCount] = useState(0);
 
   const searchProfileByTerm = (term) => {
     setProfiles([]);
@@ -26,8 +26,7 @@ export default function Profile() {
       api.get(`profiles?query="${term}"`).then((response) => {
         setLoadingProfiles(false);
         setProfiles(response.data);
-        console.log(response.data);
-
+        setCount(response.data.length);
       });
     }
   };
@@ -99,7 +98,9 @@ export default function Profile() {
             placeholder="Busca"
             onChange={(e) => handleInputSearchChange(e)}
           />
+
         </form>
+        <p className="results">{count} resultados</p>
       </div>
 
 
