@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import api from "../../services/api";
@@ -8,9 +7,9 @@ import { CSSTransitionGroup } from "react-transition-group";
 
 import "./index.css";
 import CardLoading from "./utils/card-loading/card-loading";
-import Stars from "./utils/stars/stars";
+import logoImg from '../../assets/b2b-logopreto@300x-8.png';
 
-const stringSimilarity = require("string-similarity");
+import Card from "./utils/card";
 
 export default function Profile() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +23,8 @@ export default function Profile() {
       api.get(`profiles?query="${term}"`).then((response) => {
         setLoadingProfiles(false);
         setProfiles(response.data);
+        console.log(response.data);
+
       });
     }
   };
@@ -33,30 +34,8 @@ export default function Profile() {
     []
   );
 
-  const generateSpotlightText = (textFromProfile) => {
-    let finalTextToJoin = textFromProfile
-      .split(" ")
-      .map((wordFromProfile, i) => {
-        if (wordFromProfile !== "") {
-          let tChanged = wordFromProfile;
-          searchTerm.split(" ").every((wordFromSearch) => {
-            const x = stringSimilarity.compareTwoStrings(
-              wordFromProfile.toLowerCase(),
-              wordFromSearch.toLowerCase()
-            );
-            if (x > 0.8) {
-              tChanged = `<span class="spotlight">${wordFromProfile}</span>`;
-              return false;
-            }
-            return true;
-          });
-          return tChanged;
-        }
-      });
-    return parse(finalTextToJoin.join(" "));
-  };
 
-  useEffect(() => {});
+  useEffect(() => { });
 
   function handleInputSearchChange(event) {
     const term = event.target.value;
@@ -71,7 +50,7 @@ export default function Profile() {
   return (
     <div className="profile-container">
       <header>
-        {/*  logo here  */}
+        <img src={logoImg} alt="logo" />
         <span>Bem vindo, Zito</span>
 
         <Link className="button" to="/#">
@@ -114,31 +93,8 @@ export default function Profile() {
         {!loadingProfiles ? (
           <ul>
             {profiles.map(
-              ({ name, email, contact, cidade, estado, uf, materials }, i) => (
-                <li key={i}>
-                  <button>Icon</button>
-                  <strong>{_.truncate(name, { length: 57 })}</strong>
-                  <p>{email}</p>
-                  {materials.map((m, j) =>
-                    j < 3 ? (
-                      <span key={j}>
-                        {generateSpotlightText(_.upperFirst(_.toLower(m.name)))}
-                        <br />
-                      </span>
-                    ) : null
-                  )}
-                  {materials.length > 3 ? (
-                    <a href="#">E mais outros {materials.length - 3}!</a>
-                  ) : null}
-                  <p>{contact}</p>
-                  <div className={"profile-container-botton-info "}>
-                    <p>
-                      {generateSpotlightText(_.startCase(_.toLower(cidade)))} -
-                      {generateSpotlightText(uf)}
-                    </p>
-                  </div>
-                  <Stars></Stars>
-                </li>
+              (profile, i) => (
+                <Card key={i} profile={profile} searchTerm={searchTerm}></Card>
               )
             )}
           </ul>
