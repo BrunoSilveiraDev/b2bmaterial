@@ -4,14 +4,12 @@ import { FiLogOut } from "react-icons/fi";
 import api from "../../services/api";
 import * as _ from "lodash";
 
-
 import "./styles.css";
 
 import logoImg from '../../assets/b2b-logopreto@300x-8.png';
-
-
-
 import cssTransitionGroup from "./utils/search";
+
+
 
 export default function Profile() {
   const [searchTerm, setSearchTerm] = useState("");
