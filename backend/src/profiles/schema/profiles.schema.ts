@@ -11,4 +11,6 @@ export const ProfileSchema = new mongoose.Schema({
     cidade: String,
     pais: String,
     materials: [MaterialSchema],
+    isProducer: Boolean,
+    isProvider: Boolean
 });

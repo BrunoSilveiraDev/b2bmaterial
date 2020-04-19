@@ -16,4 +16,6 @@ export class Profile extends Document {
     cidade: string;
     pais: string;
     materials: Material[];
+    isProvider: Boolean;
+    isProducer: Boolean;
 }
