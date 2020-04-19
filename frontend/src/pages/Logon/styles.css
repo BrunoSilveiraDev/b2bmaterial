@@ -23,8 +23,17 @@
 .logon-container section.form h1 {
   font-size: 32px;
   margin-bottom: 32px;
+  margin-top: 0px;
 }
 
 input{
   margin: 5px 0;
+}
+
+.logo-b2b {
+  width: 22rem;
+}
+
+.img-b2b {
+  border-radius: 8px;
 }

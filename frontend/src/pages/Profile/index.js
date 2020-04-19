@@ -5,11 +5,12 @@ import api from "../../services/api";
 import * as _ from "lodash";
 import { CSSTransitionGroup } from "react-transition-group";
 
-import "./index.css";
+import "./styles.css";
 import CardLoading from "./utils/card-loading/card-loading";
 import logoImg from '../../assets/b2b-logopreto@300x-8.png';
 
 import Card from "./utils/card";
+
 
 export default function Profile() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +18,7 @@ export default function Profile() {
   const [loadingProfiles, setLoadingProfiles] = useState(false);
   const [userName, setUserName] = useState(null);
   const history = useHistory();
+
 
   const searchProfileByTerm = (term) => {
     setProfiles([]);
@@ -31,6 +33,7 @@ export default function Profile() {
     }
   };
 
+
   const handlerDebounceSearchTerm = useCallback(
     _.debounce(searchProfileByTerm, 500),
     []
@@ -43,35 +46,69 @@ export default function Profile() {
     setUserName(currentUser?.name);
    });
 
+
   function handleInputSearchChange(event) {
     const term = event.target.value;
     setSearchTerm(term);
     handlerDebounceSearchTerm(term);
   }
 
+
   async function handleSubmit(e) {
     e.preventDefault();
   }
+
 
   function logout () {
     localStorage.clear();
     history.push('/');
   }
 
+
+
+  function cssTransitionGroup(option) {
+    let componentContent;
+    if (option === 'cardloading') {
+      componentContent = loadingProfiles
+              ? (<ul>
+                {_.times(6, function (i) {
+                  return <CardLoading key={i}></CardLoading>;
+                })}
+                 </ul>)
+            : null;
+    }
+
+    if (option === 'card') {
+      componentContent =  !loadingProfiles
+                            ? (<ul>
+                              {profiles.map(
+                                (profile, i) => (<Card key={i} profile={profile} searchTerm={searchTerm}></Card>)
+                              )}</ul>)
+                            : null;
+    }
+     const obj =  <CSSTransitionGroup
+      transitionName="example"
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={300}>
+      {componentContent}
+    </CSSTransitionGroup>
+
+    return obj;
+  }
+
+
+
   return (
     <div className="profile-container">
       <div className="nav">
         <header>
-          <img src={logoImg} alt="logo" />
+          <img src={logoImg} alt="logo"/>
           <span>Bem vindo, {userName ? userName : 'Visitante'}</span>
 
           {
-            !userName ?
-              ( <Link className="button" to="/login">
-                Login
-              </Link> ) :
-              (
-                <>
+            !userName
+              ? ( <Link className="button" to="/login">Login</Link> )
+              : (<>
                   <Link className="button" to="/">
                     Atualizar Perfil
                   </Link>
@@ -87,6 +124,7 @@ export default function Profile() {
 
           }
         </header>
+
         <form onSubmit={handleSubmit}>
           <input
             className="search"
@@ -97,34 +135,9 @@ export default function Profile() {
       </div>
 
 
-      <CSSTransitionGroup
-        transitionName="example"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}
-      >
-        {loadingProfiles ? (
-          <ul>
-            {_.times(6, function (i) {
-              return <CardLoading key={i}></CardLoading>;
-            })}
-          </ul>
-        ) : null}
-      </CSSTransitionGroup>
-      <CSSTransitionGroup
-        transitionName="example"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-      >
-        {!loadingProfiles ? (
-          <ul>
-            {profiles.map(
-              (profile, i) => (
-                <Card key={i} profile={profile} searchTerm={searchTerm}></Card>
-              )
-            )}
-          </ul>
-        ) : null}
-      </CSSTransitionGroup>
+      {cssTransitionGroup('cardloading')}
+      {cssTransitionGroup('card')}
+
     </div>
   );
 }

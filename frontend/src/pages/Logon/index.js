@@ -6,6 +6,7 @@ import './styles.css';
 import api from "../../services/api";
 
 import imgB2B from '../../assets/b2bmaterial.png';
+import logoB2B from '../../assets/b2b-logopreto@300x-8.png';
 
 export default function Logon() {
   const [email, setEmail] = useState("");
@@ -17,28 +18,28 @@ export default function Logon() {
 
     api.post(`auth/login`, {email, password}).then((response) => {
       console.log(response);
-      localStorage.setItem('currentUser', JSON.stringify(response.data.user)); 
-      localStorage.setItem('currentToken', JSON.stringify(response.data.token)); 
+      localStorage.setItem('currentUser', JSON.stringify(response.data.user));
+      localStorage.setItem('currentToken', JSON.stringify(response.data.token));
       history.push('/');
     }).catch( error => alert(error.response.data.message));
-    
+
   }
 
   return (
     <div className="logon-container">
-    <img src={imgB2B} alt="B2BMaterial" width="550px"/>
+    <img className="img-b2b" src={imgB2B} alt="B2BMaterial" width="550px" height="650px"/>
 
       <section className="form">
-        {/*  logo here */}
+        <img className="logo-b2b" src={logoB2B} alt="B2BMaterial"/>
 
         <form onSubmit={handleLogin}>
           <h1>Faça seu logon</h1>
 
           <input value={email}  name="email"
-                 onChange={ (e) => setEmail(e.target.value)} 
+                 onChange={ (e) => setEmail(e.target.value)}
                  placeholder="Seu e-mail"/>
 
-          <input value={password} 
+          <input value={password}
                   onChange={ (e) => setPassword(e.target.value)}
                  placeholder="Sua senha"/>
 
