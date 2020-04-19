@@ -45,6 +45,7 @@ export class ProfileRepository {
                         pais: 1,
                         cep: 1,
                         ratings: { $ifNull: ["$ratings", { stars: 0, companyProfile: "$_id" }] },
+                        score: { $meta: "textScore" },
                     },
                 },
                 {
@@ -62,12 +63,12 @@ export class ProfileRepository {
                         estado: { $first: "$estado" },
                         pais: { $first: "$pais" },
                         cep: { $first: "$cep" },
+                        score: { $first: "$score" },
                         starsAvg: { $avg: "$ratings.stars" },
                     },
                 },
-                { $sort: { score: { $meta: "textScore" } } },
+                { $sort: { score: -1 } },
             ])
-            .sort({ score: { $meta: "textScore" } })
             .limit(50);
     }
 
