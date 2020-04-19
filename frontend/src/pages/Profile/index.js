@@ -39,7 +39,7 @@ export default function Profile() {
 
   useEffect(() => {
     const user = localStorage.getItem('currentUser');
-    const currentUser = user ? JSON.parse(user) : null; 
+    const currentUser = user ? JSON.parse(user) : null;
     setUserName(currentUser?.name);
    });
 
@@ -60,42 +60,43 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      <header>
-        <img src={logoImg} alt="logo" />
-        <span>Bem vindo, {userName ? userName : 'Visitante'}</span>
+      <div className="nav">
+        <header>
+          <img src={logoImg} alt="logo" />
+          <span>Bem vindo, {userName ? userName : 'Visitante'}</span>
 
-        {
-          !userName ?
-            ( <Link className="button" to="/login">
-            Login
-            </Link> ) :
-            (
-              <> 
-            <Link className="button" to="/">
-            Atualizar Perfil
-             </Link> 
-            
-            <button
-              className="logout"
-              onClick={() => logout()}
-              type="button"
-            >
-              <FiLogOut size={23} color="#fff" />
-            </button>
-            </>)
+          {
+            !userName ?
+              ( <Link className="button" to="/login">
+                Login
+              </Link> ) :
+              (
+                <>
+                  <Link className="button" to="/">
+                    Atualizar Perfil
+                  </Link>
 
-        }
+                  <button
+                    className="logout"
+                    onClick={() => logout()}
+                    type="button"
+                  >
+                    <FiLogOut size={23} color="#fff" />
+                  </button>
+                </>)
 
-        
-      </header>
+          }
+        </header>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="search"
+            placeholder="Busca"
+            onChange={(e) => handleInputSearchChange(e)}
+          />
+        </form>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          className="search"
-          placeholder="Busca"
-          onChange={(e) => handleInputSearchChange(e)}
-        />
-      </form>
+
       <CSSTransitionGroup
         transitionName="example"
         transitionEnterTimeout={500}

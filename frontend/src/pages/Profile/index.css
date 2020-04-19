@@ -56,3 +56,18 @@
   grid-gap: 24px;
   list-style: none;
 }
+
+.nav {
+  position: fixed;
+  display: block;
+  align-items: center;
+  z-index: 1;
+  top: 0;
+  width: 70rem;
+  background-color: #f0f2f2;
+  padding-top: 20px;
+}
+
+ul {
+  margin-top: 330px;
+}
