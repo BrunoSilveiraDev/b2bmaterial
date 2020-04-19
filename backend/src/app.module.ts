@@ -9,6 +9,7 @@ import { NotificationService } from "./notification/notification.service";
 import { InterestListsModule } from "./interest-list/interest-list.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
+import { RatingModule } from './rating/rating.module';
 
 @Module({
     imports: [
@@ -50,6 +51,7 @@ import { UserModule } from "./user/user.module";
             }),
             inject: [ConfigService],
         }),
+        RatingModule,
     ],
     controllers: [AppController],
     providers: [AppService, NotificationService],
