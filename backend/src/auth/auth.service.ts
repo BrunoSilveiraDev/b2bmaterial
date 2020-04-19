@@ -13,7 +13,7 @@ export class AuthService {
         const user = { id: userReq.id, name: userReq.name, email: userReq.email };
         const token = jwt.sign(user, secretOrKey, { expiresIn });
 
-        return { expires_in: expiresIn, token };
+        return { user, expires_in: expiresIn, token };
     }
 
     async validateUser(signedUser: User): Promise<boolean> {
