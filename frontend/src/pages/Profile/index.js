@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import api from "../../services/api";
 import * as _ from "lodash";
@@ -15,6 +15,8 @@ export default function Profile() {
   const [searchTerm, setSearchTerm] = useState("");
   const [profiles, setProfiles] = useState([]);
   const [loadingProfiles, setLoadingProfiles] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const history = useHistory();
 
   const searchProfileByTerm = (term) => {
     setProfiles([]);
@@ -35,7 +37,11 @@ export default function Profile() {
   );
 
 
-  useEffect(() => { });
+  useEffect(() => {
+    const user = localStorage.getItem('currentUser');
+    const currentUser = user ? JSON.parse(user) : null; 
+    setUserName(currentUser?.name);
+   });
 
   function handleInputSearchChange(event) {
     const term = event.target.value;
@@ -47,22 +53,40 @@ export default function Profile() {
     e.preventDefault();
   }
 
+  function logout () {
+    localStorage.clear();
+    history.push('/');
+  }
+
   return (
     <div className="profile-container">
       <header>
         <img src={logoImg} alt="logo" />
-        <span>Bem vindo, Zito</span>
+        <span>Bem vindo, {userName ? userName : 'Visitante'}</span>
 
-        <Link className="button" to="/#">
-          Atualizar Perfil
-        </Link>
-        <button
-          className="logout"
-          onClick={() => alert("logout")}
-          type="button"
-        >
-          <FiLogOut size={23} color="#fff" />
-        </button>
+        {
+          !userName ?
+            ( <Link className="button" to="/login">
+            Login
+            </Link> ) :
+            (
+              <> 
+            <Link className="button" to="/">
+            Atualizar Perfil
+             </Link> 
+            
+            <button
+              className="logout"
+              onClick={() => logout()}
+              type="button"
+            >
+              <FiLogOut size={23} color="#fff" />
+            </button>
+            </>)
+
+        }
+
+        
       </header>
 
       <form onSubmit={handleSubmit}>
