@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { MailerModule, HandlebarsAdapter } from "@nestjs-modules/mailer";
 import { NotificationService } from "./notification/notification.service";
 import { InterestListsModule } from "./interest-list/interest-list.module";
+import { AuthModule } from "./auth/auth.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
     imports: [
@@ -38,6 +40,8 @@ import { InterestListsModule } from "./interest-list/interest-list.module";
         }),
         ProfilesModule,
         InterestListsModule,
+        AuthModule,
+        UserModule,
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => ({
