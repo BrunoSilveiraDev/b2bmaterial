@@ -16,9 +16,6 @@ export class ProfileRepository {
             .aggregate([
                 { $match: { $text: { $search: `"${searchText}"` } } },
                 {
-                    $sort: { score: { $meta: "textScore" } },
-                },
-                {
                     $lookup: {
                         from: "rating",
                         localField: "_id",
@@ -68,6 +65,7 @@ export class ProfileRepository {
                         starsAvg: { $avg: "$ratings.stars" },
                     },
                 },
+                { $sort: { score: { $meta: "textScore" } } },
             ])
             .sort({ score: { $meta: "textScore" } })
             .limit(50);

@@ -18,14 +18,10 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-transition-group": "^1.2.1",
-<<<<<<< HEAD
     "semantic-ui-react": "^0.88.2",
     "string-similarity": "^4.0.1",
-    "typeface-roboto": "^0.0.75"
-=======
-    "string-similarity": "^4.0.1",
+    "typeface-roboto": "^0.0.75",
     "yup": "^0.28.3"
->>>>>>> Implementando profile
   },
   "scripts": {
     "start": "react-scripts start",
