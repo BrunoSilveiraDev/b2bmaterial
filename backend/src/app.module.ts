@@ -10,6 +10,7 @@ import { InterestListsModule } from "./interest-list/interest-list.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
 import { RatingModule } from './rating/rating.module';
+import { AuthzModule } from "./authz/authz.module";
 
 @Module({
     imports: [
@@ -51,7 +52,11 @@ import { RatingModule } from './rating/rating.module';
             }),
             inject: [ConfigService],
         }),
+<<<<<<< HEAD
         RatingModule,
+=======
+        AuthzModule,
+>>>>>>> Editar Profile
     ],
     controllers: [AppController],
     providers: [AppService, NotificationService],

@@ -9,11 +9,12 @@ export class ProfileRepository {
 
     async findAllByText(searchText: string): Promise<Profile[]> {
         if (!searchText || searchText === "") {
-            return this.profileModel.find();
+            return [];
         }
         return this.profileModel
             .find({ $text: { $search: `"${searchText}"` } }, { score: { $meta: "textScore" } })
-            .sort({ score: { $meta: "textScore" } });
+            .sort({ score: { $meta: "textScore" } })
+            .limit(50);
     }
 
     async create(model: Partial<Profile>): Promise<Profile> {

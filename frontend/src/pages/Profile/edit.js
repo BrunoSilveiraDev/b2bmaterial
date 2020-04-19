@@ -44,7 +44,7 @@ const ProfileEdit = () => {
         <button type="submit" className="button">
           Atualizar
         </button>
-        <Link type="button" className="button" to="/profile">
+        <Link type="button" className="button" to="/">
           Cancelar
         </Link>
       </form>
