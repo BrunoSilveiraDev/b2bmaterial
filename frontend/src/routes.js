@@ -5,7 +5,6 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import ProfileEdit from "./pages/Profile/edit";
 import InterestList from "./pages/InterestList/index";
-import PrivateRoute from "./components/PrivateRoute";
 
 export default function Routes() {
   return (
@@ -14,8 +13,8 @@ export default function Routes() {
         <Route path="/login" component={Logon} />
         <Route path="/" exact component={Profile} />
         <Route path="/signup" component={SignUp} />
-        <PrivateRoute path="/profile/edit" exact component={ProfileEdit} />
-        <PrivateRoute path="/interest-list" exact component={InterestList} />
+        <Route path="/profile/edit" exact component={ProfileEdit} />
+        <Route path="/interest-list" exact component={InterestList} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import * as _ from "lodash";
-import { useAuth0 } from "../../react-auth0-spa";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
@@ -14,7 +13,6 @@ const ProfileEdit = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [profile, setProfile] = useState({});
   const [updatingProfile, setUpdatingProfile] = useState("");
-  const { getTokenSilently } = useAuth0();
 
   const history = useHistory();
   const token = JSON.parse(localStorage.getItem("currentToken"));
