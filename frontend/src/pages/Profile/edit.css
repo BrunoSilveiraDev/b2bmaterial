@@ -5,11 +5,8 @@ input {
   margin-top: 10px;
 }
 
-button {
-  margin-top: 10px;
-}
-
 .button-back-to-list {
   position: absolute;
   right: 20px;
+  margin-top: 10px;
 }
