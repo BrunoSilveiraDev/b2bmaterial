@@ -60,6 +60,7 @@ const ProfileEdit = () => {
     const currentUser = user ? JSON.parse(user) : null;
     setCurrentUser(currentUser);
     console.log("Current User", currentUser);
+
     findProfile(currentUser.id);
   }, []);
 

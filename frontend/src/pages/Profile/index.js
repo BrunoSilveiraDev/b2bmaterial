@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+import { GiTallBridge } from "react-icons/gi";
+
 import api from "../../services/api";
 import * as _ from "lodash";
 
@@ -78,7 +80,13 @@ export default function Profile() {
               <Link className="button" to="/profile/edit">
                 Atualizar Perfil
               </Link>
-
+              <button
+                className="logout"
+                onClick={() => history.push("/interest-list")}
+                type="button"
+              >
+                <GiTallBridge size={23} color="#fff" />
+              </button>
               <button className="logout" onClick={() => logout()} type="button">
                 <FiLogOut size={23} color="#fff" />
               </button>

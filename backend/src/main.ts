@@ -10,9 +10,7 @@ async function bootstrap() {
         .setDescription("Contruindo pontes para quem precisa produzir")
         .setVersion("1.0")
         .addTag("hackathon")
-        .addBearerAuth(
-            {name: 'Authorization', type: 'apiKey', in: 'header'}
-        )
+        .addBearerAuth({ name: "Authorization", type: "apiKey", in: "header" })
         .build();
     const document = SwaggerModule.createDocument(app, swaggerOptions);
     SwaggerModule.setup("swagger", app, document);
@@ -24,6 +22,6 @@ async function bootstrap() {
         credentials: true,
     };
     app.enableCors(options);
-    await app.listen(3000);
+    await app.listen(process.env.PORT);
 }
 bootstrap();

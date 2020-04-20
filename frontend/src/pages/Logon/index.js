@@ -25,7 +25,22 @@ export default function Logon() {
           "currentToken",
           JSON.stringify(response.data.token)
         );
-        history.push("/");
+        api
+          .get(`profiles/user/${response.data.user.id}`, {
+            headers: { Authorization: `Bearer ${response.data.token}` },
+          })
+          .then((response) => {
+            if (response.data.profile) {
+              localStorage.setItem(
+                "currentProfile",
+                JSON.stringify(response.data.profile)
+              );
+            } else {
+              localStorage.setItem("currentProfile", JSON.stringify({}));
+            }
+
+            history.push("/");
+          });
       })
       .catch((error) => alert(error.response.data.message));
   }

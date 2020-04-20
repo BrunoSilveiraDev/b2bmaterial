@@ -19,6 +19,7 @@ export default function Card({ profile, searchTerm }) {
     email,
     materials,
     contact,
+    phone,
     cidade,
     uf,
   } = profile;
@@ -69,7 +70,12 @@ export default function Card({ profile, searchTerm }) {
           ) : null}
           <p>{contact}</p>
         </div>
-        <FaRegHandshake className="button-contact" size={23} color="#000" />
+        <ContactDialog
+          profileToId={profile._id}
+          name={name}
+          email={email}
+          phone={phone}
+        ></ContactDialog>
       </div>
 
       <div className={"profile-container-botton-info "}>
