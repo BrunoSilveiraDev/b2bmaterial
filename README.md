@@ -6,4 +6,4 @@ Um projeto desenvolvido durante a Pandemic Hackfest, para ajudar no combate ao c
 
 Descrição da aplicação: conectar as empresas fornecedoras de insumos para confecção de epis.
 
-Acesse a aplicação nesse link: https://b2bmaterial.site
+Acesse a aplicação nesse link: http://b2bmaterial.site
