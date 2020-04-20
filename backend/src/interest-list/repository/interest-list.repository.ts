@@ -11,7 +11,7 @@ export class InterestListRepository {
     async find(profileFromId: any): Promise<InterestList> {
         return this.interestListModel
             .findOne({ profile: profileFromId })
-            .populate("interestList", "name uf", "Profile");
+            .populate("interestList", "id cnpj name cidade estado uf telefone email pais materials", "Profile");
     }
 
     async addToList(profileFromId: any, profile: Profile) {

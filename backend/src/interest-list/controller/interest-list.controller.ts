@@ -3,10 +3,11 @@ import { InterestListRepository } from "../repository/interest-list.repository";
 import { InterestList } from "src/shared/interest-list";
 import { ApiBody } from "@nestjs/swagger";
 import { Profile } from "src/shared/profile";
+import { NotificationService } from "./../../notification/notification.service";
 
 @Controller("interest-list")
 export class InterestListsController {
-    constructor(private profileRepository: InterestListRepository) {}
+    constructor(private profileRepository: InterestListRepository, private notificacaoService: NotificationService) {}
     @Get("/:profileId")
     async findById(@Param("profileId") profileId): Promise<InterestList> {
         if (!profileId.match(/^[0-9a-fA-F]{24}$/)) {
@@ -25,6 +26,8 @@ export class InterestListsController {
     @Post("/:profileId")
     @ApiBody({ type: Profile })
     async addToList(@Param("profileId") profileId: string, @Body() profile: Profile): Promise<InterestList> {
+        this.notificacaoService.notify({ id: profileId } as Profile, profile);
+        console.log("Profile", profile);
         return this.profileRepository.addToList(profileId, profile);
     }
 

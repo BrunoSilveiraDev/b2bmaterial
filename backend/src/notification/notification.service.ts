@@ -12,10 +12,10 @@ export class NotificationService {
     sendEmail(profileFrom: Profile, profileTo: Profile) {
         this.mailerService
             .sendMail({
-                to: "gleytonclima@gmail.com",
+                to: `${profileTo.email}`,
                 from: "b2bmaterial@gmail.com",
                 subject: "B2B Material - Nova Notificação ✔",
-                text: "Boas notícias! Nova ponte construída!", 
+                text: "Boas notícias! Nova ponte construída!",
                 template: "new-bridge",
                 context: {
                     profileFrom: { name: "Beltrano da Silva", email: "beltranosilva@teste.com" },

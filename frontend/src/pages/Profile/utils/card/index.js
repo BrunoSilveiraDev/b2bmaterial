@@ -57,15 +57,17 @@ export default function Card({ profile, searchTerm }) {
       <div className="card-content">
         <div className="company-info">
           <p>{email}</p>
-          {materials.map((m, j) =>
-            j < 3 ? (
-              <span key={j}>
-                {generateSpotlightText(_.upperFirst(_.toLower(m.name)))}
-                <br />
-              </span>
-            ) : null
-          )}
-          {materials.length > 3 ? (
+          {materials
+            ? materials.map((m, j) =>
+                j < 3 ? (
+                  <span key={j}>
+                    {generateSpotlightText(_.upperFirst(_.toLower(m.name)))}
+                    <br />
+                  </span>
+                ) : null
+              )
+            : null}
+          {(materials && materials.length) > 3 ? (
             <a href="#">E mais outros {materials.length - 3}!</a>
           ) : null}
           <p>{contact}</p>

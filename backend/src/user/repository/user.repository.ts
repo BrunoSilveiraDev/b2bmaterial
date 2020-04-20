@@ -15,7 +15,6 @@ export class UserRepository {
             .findById(id)
             .populate("profile", "id cnpj name cidade estado uf telefone email pais materials", "Profile");
     }
-
     async findByEmail(email: string): Promise<User> {
         return this.userModel.findOne({ email });
     }

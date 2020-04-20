@@ -5,25 +5,29 @@ import { AiOutlineClose } from "react-icons/ai";
 import api from "../../services/api";
 import * as _ from "lodash";
 
-import "./styles.css";
-
 import logoImg from "../../assets/b2b-logopreto@300x-8.png";
+import Card from "../Profile/utils/card";
+
+import "./styles.css";
 
 export default function InterestList() {
   const [profiles, setProfiles] = useState([]);
+  const [loadedList, setLoadedList] = useState(true);
   const history = useHistory();
   const currentProfile = JSON.parse(localStorage.getItem("currentProfile"));
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const listInterestList = (term) => {
-    setProfiles([]);
+  useEffect(() => {
+    const url = `/interest-list/${currentProfile._id}`;
+    console.log("UserEffect", url, currentProfile);
     if (currentProfile._id) {
-      api.get(`interest-list​/${currentProfile._id}`).then((response) => {
+      setLoadedList(true);
+      api.get(url).then((response) => {
         console.log(response.data);
+        setLoadedList(false);
+        setProfiles(response.data.interestList);
       });
     }
-  };
-
-  useEffect(() => {});
+  }, []);
 
   function logout() {
     localStorage.clear();
@@ -50,6 +54,13 @@ export default function InterestList() {
       </header>
 
       <h1 className="h1-update-profile">Lista de Interesse</h1>
+      <ul className="ul-list-interest">
+        {!loadedList
+          ? profiles.map((p, i) => (
+              <Card key={i} profile={p} searchTerm={""}></Card>
+            ))
+          : null}
+      </ul>
     </div>
   );
 }
